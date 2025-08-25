@@ -27,7 +27,7 @@
     "react-native-vector-icons": "^10.2.0",
     "react-redux": "^9.2.0",
     "react-i18next": "^15.7.2",
-    "expo": "~52.0.0",
+    "expo": "~52.0.14",
     "expo-status-bar": "~2.0.0"
   },
   "devDependencies": {
