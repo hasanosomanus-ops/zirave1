@@ -1,0 +1,35 @@
+name: Decompress zirave-main.zip
+on:
+  workflow_dispatch:
+
+jobs:
+  decompress:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Unzip the file
+        run: |
+          unzip -o zirave-main.zip -d .
+          echo "File zirave-main.zip decompressed successfully."
+
+      - name: Delete the original ZIP file
+        run: |
+          rm zirave-main.zip
+          echo "Original ZIP file deleted."
+
+      - name: Configure Git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+      - name: Commit and push changes
+        run: |
+          git add .
+          if ! git diff --staged --quiet; then
+            git commit -m "Decompress zirave-main.zip and add contents"
+            git push
+          else
+            echo "No changes to commit."
+          fi
