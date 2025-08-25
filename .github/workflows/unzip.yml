@@ -1,6 +1,6 @@
-name: Decompress https://github.com/hasanosomanus-ops/zirave1/blob/5cabf2e154ffcb7b51364ee9bc02edc20dc3f619/zirave-main.zip
+name: Decompress zirave-main.zip
 on:
-  workflow_dispatch:
+workflow_dispatch:
 
 jobs:
   decompress:
