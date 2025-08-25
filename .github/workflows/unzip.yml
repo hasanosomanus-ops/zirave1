@@ -1,6 +1,6 @@
 name: Decompress zirave-main.zip
 on:
-workflow_dispatch:
+ workflow_dispatch:
 
 jobs:
   decompress:
