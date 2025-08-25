@@ -1,38 +1,25 @@
-name: Decompress ZIP File
+name: Decompress zirave-main.zip
 
 on:
-  push:
-    paths:
-      - 'uploads/**.zip' # يعمل عند رفع أي ملف zip داخل مجلد uploads
+  workflow_dispatch:
 
 jobs:
-  decompress:
+  decompress-and-commit:
     runs-on: ubuntu-latest
     steps:
-      # 1. سحب نسخة من المستودع إلى الخادم المؤقت
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # 2. فك ضغط الملف
       - name: Unzip the file
-        run: |
-          # ابحث عن ملف الـ zip داخل مجلد uploads وفك ضغطه في المجلد الرئيسي
-          unzip -j ./uploads/*.zip -d ./
+        run: unzip -o zirave-main.zip -d .
 
-      # 3. إعداد Git لرفع التغييرات
-      - name: Configure Git
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+      - name: Delete the original ZIP
+        run: rm zirave-main.zip
 
-      # 4. إضافة الملفات الجديدة وعمل Commit
-      - name: Commit and push changes
+      - name: Commit and Push changes
         run: |
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
           git add .
-          # التحقق إذا كان هناك تغييرات لعمل commit
-          if ! git diff --staged --quiet; then
-            git commit -m "Decompress ZIP file and add contents"
-            git push
-          else
-            echo "No changes to commit."
-          fi
+          git commit -m "Decompressed zirave-main.zip" || echo "No changes to commit"
+          git push
